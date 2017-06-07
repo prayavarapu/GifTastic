@@ -102,8 +102,8 @@
 
 //On click function to grab gifs
 
-	$(document.body).on("click", "button", function() {
-
+	$(document.body).on("click", "button", function(event) {
+		event.preventDefault();
 		reset();
 		var name = $(this).attr("name");
 
@@ -125,66 +125,38 @@
 	      $("#emotions").append(htmlImages);
 	      var rating = response.data[i].rating;
 	      var label = "<label for=" + i + ">" + "rating: " + rating + "</label>";
-	      $("#emotions").append(label);
-
-	      $("img").on("click", function() {
-
-      		var state = $(this).attr("id");
-      		console.log("id:", state);
-
-      			var source = $(this).attr("src");
-      			console.log(source);
-      			var still = g_response.data[state].images.original_still.url;
-      			var animate = g_response.data[state].images.original.url;
-      			
-
-      			if (source === still){
-
-      				targetSource = animate;
-
-      				$(this).attr("src", targetSource);	
-
-	      		}
-  
-
-
-	      $("img").on("click", function() {
-
-      		var state = $(this).attr("id");
-      		console.log("id:", state);
-
-      			var source = $(this).attr("src");
-      			console.log(source);
-      			var still = g_response.data[state].images.original_still.url;
-      			var animate = g_response.data[state].images.original.url;
-      			
-
-      			if (source === animate){
-
-      				targetSource = still;
-
-      				$(this).attr("src", targetSource);	
-
-	      		}
-  
-	      	})
-
-    })
-
-
-
-
-
-
-	     
-	  }
+	      $("#emotions").append(label);  
+  		}//end for loop
 
 	    });
 
 	    
-	})
+	});
 
-	 
+	 $(document.body).on("click", "img", function(event) {
+
+      		var state = $(this).attr("id");
+      		console.log("id:", state);
+
+      			var source = $(this).attr("src");
+      			console.log(source);
+      			var still = g_response.data[state].images.original_still.url;
+      			var animate = g_response.data[state].images.original.url;
+      			
+      			if (source === animate){
+
+      				targetSource = still;
+
+      				$(this).attr("src", targetSource);
+      				console.log("Setting still...");
+	      		}
+	      		else if(source === still){
+	      			$(this).attr("src", animate);
+	      			console.log("Setting animate...");
+	      		}
+  
+	      	});
+
 
 
 
