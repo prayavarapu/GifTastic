@@ -3,7 +3,7 @@
 <head>
 	<title>GifTastic</title>
 
-<link rel = "stylesheet" type = "text/css" href = "">
+<link rel = "stylesheet" type = "text/css" href = "style.css">
 
 	<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -61,6 +61,12 @@
 //Create an array for your topics
 	var topic = ["joy", "sad", "angry", "calm"];
 
+	var g_response;
+	var targetSource;
+
+	 
+
+
 
 	$("#addEmotion").on("click", function(event) {
       event.preventDefault();
@@ -107,9 +113,10 @@
 	      url: queryURL,
 	      method: 'GET'
 	    }).done(function(response) {
+	    	g_response = response;
 	      console.log(response);
 	      for(i=0;i<10;i++){
-	      var url = response.data[i].images.original.url;
+	      var url = response.data[i].images.original_still.url;
 	       console.log(url);
 
 	      var htmlImages = $("<img>");
@@ -120,6 +127,55 @@
 	      var label = "<label for=" + i + ">" + "rating: " + rating + "</label>";
 	      $("#emotions").append(label);
 
+	      $("img").on("click", function() {
+
+      		var state = $(this).attr("id");
+      		console.log("id:", state);
+
+      			var source = $(this).attr("src");
+      			console.log(source);
+      			var still = g_response.data[state].images.original_still.url;
+      			var animate = g_response.data[state].images.original.url;
+      			
+
+      			if (source === still){
+
+      				targetSource = animate;
+
+      				$(this).attr("src", targetSource);	
+
+	      		}
+  
+
+
+	      $("img").on("click", function() {
+
+      		var state = $(this).attr("id");
+      		console.log("id:", state);
+
+      			var source = $(this).attr("src");
+      			console.log(source);
+      			var still = g_response.data[state].images.original_still.url;
+      			var animate = g_response.data[state].images.original.url;
+      			
+
+      			if (source === animate){
+
+      				targetSource = still;
+
+      				$(this).attr("src", targetSource);	
+
+	      		}
+  
+	      	})
+
+    })
+
+
+
+
+
+
 	     
 	  }
 
@@ -128,6 +184,8 @@
 	    
 	})
 
+	 
+
 
 
 	function reset(){
@@ -135,32 +193,6 @@
 	}
 
 		
-
- 	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 
