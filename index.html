@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GifTastic</title>
+
+<link rel = "stylesheet" type = "text/css" href = "">
+
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+	<div class="jumbotron"><center>
+  		<h1>How are you feeling?</h1>
+  		<p>Choose an emotion and you will see the page flood with wonderful gifs!</p></center>
+</div>
+ 
+ <!--Row 1-->
+<div class = "row">
+ <!--Buttons will be here-->
+	<div class = "col-md-9">
+	<div id = "emotionButtons">
+	</div>
+</div>
+
+  <!--Search form will be here-->
+	<div class = "col-md-3">
+	<form id = "gif-form">
+		<label for="emotion-input">Add an emotion:</label>
+		<br>
+		<input id = "emotionInput" type="text" name="emotion-input">
+		<br>
+		<input id = "addEmotion" type = "submit" value="Submit"></form>
+		</div>
+	</div>
+
+	<br> <br> <br>
+
+	<!--Row 2-->
+	<div class = "row">
+		<div class = "col-md-12">
+		<div id = "emotions">
+			</div>
+			</div>
+	</div>
+
+
+
+
+ <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+<script>
+
+
+//Create an array for your topics
+	var topic = ["joy", "sad", "angry", "calm"];
+
+
+	$("#addEmotion").on("click", function(event) {
+      event.preventDefault();
+
+      // Get the to-do "value" from the textbox and store it a variable
+      var input = $("#emotionInput").val().trim();
+
+      topic.push(input);
+
+      var topicButtons = $("<button>");
+      	topicButtons.attr("name", input);
+      	console.log(input);
+      	$("#emotionButtons").append(topicButtons);
+      	topicButtons = topicButtons.prepend(input);
+
+      console.log(input);
+
+  })
+
+	
+
+//Loop to create buttons from these topics
+
+	for (i=0; i < topic.length; i++){
+
+		
+		var topicButtons = $("<button>");
+      	topicButtons.attr("name", topic[i]);
+      	console.log(topic[i]);
+      	$("#emotionButtons").append(topicButtons);
+      	topicButtons = topicButtons.prepend(topic[i]);
+      
+	}
+
+//On click function to grab gifs
+
+	$(document.body).on("click", "button", function() {
+
+		reset();
+		var name = $(this).attr("name");
+
+		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + name + "&limit=10&rating=pg-13&api_key=dc6zaTOxFJmzC"; 
+
+	    $.ajax({
+	      url: queryURL,
+	      method: 'GET'
+	    }).done(function(response) {
+	      console.log(response);
+	      for(i=0;i<10;i++){
+	      var url = response.data[i].images.original.url;
+	       console.log(url);
+
+	      var htmlImages = $("<img>");
+	      htmlImages.attr("src", url);
+	      $("#emotions").append(htmlImages);
+	      var rating = response.data[i].rating;
+	     
+	  }
+
+	    });
+
+	    
+	})
+
+
+
+
+
+
+	function reset(){
+		$("#emotions").empty();
+	}
+
+		
+
+	
+
+
+
+
+
+	
+
+
+
+
+
+ //query URL and ajax
+
+ 	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
