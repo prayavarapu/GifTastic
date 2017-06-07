@@ -80,7 +80,6 @@
 
   })
 
-	
 
 //Loop to create buttons from these topics
 
@@ -115,8 +114,12 @@
 
 	      var htmlImages = $("<img>");
 	      htmlImages.attr("src", url);
+	      htmlImages.attr("id", i);
 	      $("#emotions").append(htmlImages);
 	      var rating = response.data[i].rating;
+	      var label = "<label for=" + i + ">" + "rating: " + rating + "</label>";
+	      $("#emotions").append(label);
+
 	     
 	  }
 
@@ -127,28 +130,11 @@
 
 
 
-
-
-
 	function reset(){
 		$("#emotions").empty();
 	}
 
 		
-
-	
-
-
-
-
-
-	
-
-
-
-
-
- //query URL and ajax
 
  	
 	
