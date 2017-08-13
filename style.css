@@ -1,5 +1,31 @@
 
+.jumbotron{
+	background-color: #B0C4DE;
+	color: white;
+	font-family: "Paytone One", sans-serif;
+}
 
-h1{
-	color: red;
+button{
+	width: 100px;
+	padding: 10px;
+	margin: 10px;
+	background-color: #B0C4DE;
+	border: none;
+}
+
+img{
+	height: 300px;
+	width: 300px;
+	margin: 5px;
+}
+
+body{
+	background-image: url("memphis-colorful.png");
+}
+
+#addEmotion{
+	background-color: #B0C4DE;
+	border: none;
+	margin: 5px;
+
 }
